@@ -20,12 +20,12 @@ void Vector::clear()
     _capacity = 0;
 }
 
-Vector::Vector() : _size(0), _capacity(0), _multiplicativeCoef(2.0f), _data(nullptr)
-{
+//Vector::Vector() : _size(0), _capacity(0), _multiplicativeCoef(2.0f), _data(nullptr)
+//{
 
-};
+//};
 
-Vector::Vector(const ValueType* rawArray, const size_t size, float coef = 2.0f) : _size(size), _capacity(size), _multiplicativeCoef(coef)
+Vector::Vector(const ValueType* rawArray, const size_t size, float coef) : _size(size), _capacity(size), _multiplicativeCoef(coef)
 {
     if (_size > 0)
     {
@@ -43,7 +43,7 @@ Vector::Vector(const ValueType* rawArray, const size_t size, float coef = 2.0f) 
     }
 };
 
-Vector::Vector(const Vector& other) : _size(other._size), _capacity(other._capacity), _multiplicativeCoef(other._multiplicativeCoef)
+Vector::Vector(const Vector& other) : _size(other._size), _capacity(other._size), _multiplicativeCoef(other._multiplicativeCoef)
 {
     if (_size == 0)
     {
@@ -382,7 +382,7 @@ void Vector::popBack()
 {
     if (_size == 0)
     {
-        std::cout << "It is not possible to delete an element from an empty vector" << std::endl;
+        throw std::out_of_range ("It is not possible to delete an element from an empty vector");
     }
 
     --_size;
@@ -392,7 +392,7 @@ void Vector::popFront()
 {
     if (_size == 0)
     {
-        std::cout << "It is not possible to delete an element from an empty vector" << std::endl;
+        throw std::out_of_range ("It is not possible to delete an element from an empty vector");
     }
 
     for (size_t i = 1; i < _size; ++i)
@@ -431,7 +431,10 @@ void Vector::erase(size_t pos, size_t count)
 
 void Vector::eraseBetween(size_t beginPos, size_t endPos)
 {
-    if (_size == 0) {return;}
+    if (_size == 0)
+    {
+        return;
+    }
 
     if (beginPos > _size || beginPos > endPos)
     {
@@ -466,19 +469,28 @@ size_t Vector::capacity() const
 
 double Vector::loadFactor() const
 {
-    if (_capacity == 0) {return 0.0;};
+    if (_capacity == 0)
+    {
+        return 0.0;
+    };
     return double(_size) / double(_capacity);
 };
 
 ValueType& Vector::operator[](size_t idx)
 {
-    if (_size <= idx) {std::cout << "The index is not suitable";};
+    if (_size <= idx)
+    {
+        std::cout << "The index is not suitable";
+    };
     return _data[idx];
 };
 
 const ValueType& Vector::operator[](size_t idx) const
 {
-    if (_size <= idx) {std::cout << "The index is not suitable";};
+    if (_size <= idx)
+    {
+        std::cout << "The index is not suitable";
+    };
     return _data[idx];
 };
 
@@ -525,7 +537,10 @@ void Vector::reserve(size_t capacity)
 
 void Vector::shrinkToFit()
 {
-    if (_size == _capacity) {return;}
+    if (_size == _capacity)
+    {
+        return;
+    }
 
     if (_size == 0)
     {

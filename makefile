@@ -1,8 +1,8 @@
 CXX = g++
 MAIN_TARGET = main
 TEST_TARGET = vector_test
-SRC = Master/Vector.cpp Master/main.cpp
-TEST_SRC = Master/Vector.cpp
+SRC = master/vector.cpp master/main.cpp
+TEST_SRC = master/vector.cpp
 FLAGS = -L. -lVectorTest
 
 all: $(MAIN_TARGET) $(TEST_TARGET)
@@ -20,4 +20,4 @@ test: $(TEST_TARGET)
 	./$(TEST_TARGET)
 
 clean:
-	rm -f $(MAIN_TARGET) $(TEST_TARGET)
+	rm -f $(MAIN_TARGET) $(TEST_TARGET) 
